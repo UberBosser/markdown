@@ -11,6 +11,6 @@
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
             crossorigin="anonymous">
         </script>
-        <script>function update(){$.ajax({type:"GET",url:"/data",success:function(t){$("body").html(t)}})}$(document).ready(function(){update(),setInterval(update,1e3)});</script>
+        <script>function update(){$.ajax({type:"GET",url:"/data",success:function(t){$("body").html(t.html);if(document.title!=t.name){document.title=t.name;}}})}$(document).ready(function(){update(),setInterval(update,1e3)});</script>
     </body>
 </html>

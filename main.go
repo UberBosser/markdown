@@ -9,6 +9,11 @@ import (
 	"os"
 )
 
+type MarkdownFile struct {
+	Name string        `json:"name"`
+	Html template.HTML `json:"html"`
+}
+
 func render(c *gin.Context) {
 	c.HTML(200, "main.tmpl", nil)
 }
@@ -19,8 +24,8 @@ func data(c *gin.Context) {
 		c.JSON(200, template.HTML("<h2>Error</h2><p>"+err.Error()+"</p>"))
 		return
 	}
-	html := template.HTML(markdown.ToHTML(md, nil, nil))
-	c.JSON(200, html)
+	markdownFile := MarkdownFile{os.Args[1], template.HTML(markdown.ToHTML(md, nil, nil))}
+	c.JSON(200, markdownFile)
 }
 
 func main() {
@@ -37,5 +42,6 @@ func main() {
 
 	router.NoRoute(render)
 
+	fmt.Println("Serving port :8080")
 	router.Run()
 }
